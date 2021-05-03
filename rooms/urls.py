@@ -3,4 +3,7 @@ from . import views
 
 app_name = "rooms"
 
-urlpatterns = [path("<int:potato>", views.RoomDatail.as_view(), name="detail")]
+urlpatterns = [
+    path("<int:potato>", views.RoomDatail.as_view(), name="detail"),
+    path("search/", views.search, name="search"),
+]
