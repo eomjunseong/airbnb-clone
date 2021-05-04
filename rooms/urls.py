@@ -4,6 +4,6 @@ from . import views
 app_name = "rooms"
 
 urlpatterns = [
-    path("<int:potato>", views.RoomDatail.as_view(), name="detail"),
-    path("search/", views.search, name="search"),
+    path("<int:pk>", views.RoomDatail.as_view(), name="detail"),
+    path("search/", views.SearchView.as_view(), name="search"),
 ]
