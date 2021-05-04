@@ -9,7 +9,10 @@
 
 {% block content %}
 
-    Hello!
-
+    <form method = "POST" action="{% url "users:login" %}"  >
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>Login in</button>
+    </form>
 
 {% endblock content %} 
