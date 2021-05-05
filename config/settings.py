@@ -138,3 +138,12 @@ AUTH_USER_MODEL = "users.User"  # 장고의 디폴드 user를 사용 X
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")  # 절대경로에 미디어 파일 업로드 경로 설정
 
 MEDIA_URL = "/media/"  # ㅅㅂ 이게 절대 경로 아이냐?
+
+# Email configuration
+
+EMAIL_HOST = "smtp.mailgun.org"
+EMAIL_PORT = "587"
+print(os.environ.get("MAILGUN_PASSWORD"))
+EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
+EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
+EMAIL_FROM = "sexy-guy@sandbox86767e23ade84c7f9a3f3c809e159093.mailgun.org"
