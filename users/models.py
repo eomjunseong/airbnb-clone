@@ -30,7 +30,11 @@ class User(AbstractUser):  # AbstractUser 는  디비에 등록되지 않아  ab
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
     bio = models.TextField(default="", blank=True)
     birthdate = models.DateField(blank=True, null=True)
-    language = models.CharField(choices=LANGRAGE_CHOICES, max_length=2, blank=True)
-    currency = models.CharField(choices=CURRENCY_CHOICES, max_length=3, blank=True)
+    language = models.CharField(
+        choices=LANGRAGE_CHOICES, max_length=2, blank=True, default=LANGRAGE_KOREAN
+    )
+    currency = models.CharField(
+        choices=CURRENCY_CHOICES, max_length=3, blank=True, default=CURRENCY_KRW
+    )
 
     superhost = models.BooleanField(default=False)
