@@ -79,5 +79,5 @@ class User(AbstractUser):  # AbstractUser 는  디비에 등록되지 않아  ab
                 fail_silently=False,
                 html_message=html_message,
             )
-            self.save()  # self.email_secret = secret 저장
+            self.save()
         return

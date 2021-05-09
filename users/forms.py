@@ -30,6 +30,7 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = models.User
         fields = ("first_name", "last_name", "email")
+
         # password 는 유저가 갖고있지 않음 그래서 밖으로 뺌
 
     password = forms.CharField(widget=forms.PasswordInput)
