@@ -11,10 +11,10 @@ from . import forms, models
 
 class LoginView(FormView):
 
-    template_name = "users/login.html"
+    template_name = "users/login.html"  # 띄울 화면
     form_class = forms.LoginForm  # LoginForm() 아님 LoginForm임
-    success_url = reverse_lazy("core:home")
-    initial = {"email": "um1129@naver.com"}
+    success_url = reverse_lazy("core:home")  # 성공시 띄울 화면
+    initial = {"email": "um1129@naver.com"}  # 초기값 세팅
 
     def form_valid(self, form):
         email = form.cleaned_data.get("email")
@@ -34,13 +34,8 @@ def log_out(request):
 
 class SignUpView(FormView):
     template_name = "users/signup.html"
-    form_class = forms.SignUpForm  # LoginForm() 아님 LoginForm임
+    form_class = forms.SignUpForm
     success_url = reverse_lazy("core:home")
-    initial = {
-        "first_name": "eom",
-        "last_name": "jun",
-        "email": "e1@naver.com",
-    }
 
     def form_valid(self, form):
         form.save()

@@ -9,9 +9,10 @@ class HomeView(ListView):
     # 지금 이걸 읽고있으면 바로 위의 주석을 읽어라,
     """HomeView Definition"""
 
-    # ListView 는 아래 를 자동으로 -->object_list 함 --> room_list 에서 바로 object_list 사용
+    # ListView 는 아래 를 자동으로 -->object_list 함
+    # --> room_list 에서 바로 object_list 사용
     model = models.Room
-    paginate_by = 10
+    paginate_by = 12
     paginate_orphans = 5
     context_object_name = "rooms"  # object_list -> rooms
 

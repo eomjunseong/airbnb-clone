@@ -112,6 +112,12 @@ class Room(core_models.TimeStampedModel):
             return round(all_ratrings / len(all_reviews), 2)
         return 0
 
+    def first_photo(self):
+        # unpacking value
+        (photo,) = self.photos.all()[:1]
+        return photo.file.url
+        # print(photo.file.url)#/media/room_photos/25.webp
+
 
 # python manage.py shell
 # from rooms.models import Room

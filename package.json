@@ -6,8 +6,8 @@
     "type": "git",
     "url": "git+https://github.com/eomjunseong/airbnb-clone.git"
   },
-  "scripts":{
-    "css":"gulp"
+  "scripts": {
+    "css": "gulp"
   },
   "homepage": "https://github.com/eomjunseong/airbnb-clone#readme",
   "devDependencies": {
