@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
+from django.shortcuts import reverse
 from django.template.loader import render_to_string  # template을 load해서 render 하는거임
 
 
@@ -81,3 +82,7 @@ class User(AbstractUser):  # AbstractUser 는  디비에 등록되지 않아  ab
             )
             self.save()
         return
+
+    # 21 --> 덤으로 admin panel 에도 새로운 버튼이 생김
+    def get_absolute_url(self):
+        return reverse("users:profile", kwargs={"pk": self.pk})

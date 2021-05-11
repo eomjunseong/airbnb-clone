@@ -12,7 +12,7 @@ class HomeView(ListView):
     # ListView 는 아래 를 자동으로 -->object_list 함
     # --> room_list 에서 바로 object_list 사용
     model = models.Room
-    paginate_by = 12
+    paginate_by = 12  # -->page_obj 사용 바로 가능
     paginate_orphans = 5
     context_object_name = "rooms"  # object_list -> rooms
 
@@ -26,7 +26,7 @@ class RoomDatail(DetailView):
     """RoomDatail Definition"""
 
     # DetailView ---> arg 로 정확히 pk 가 와야함.
-    # 잘못도니값 --> 알아서 Not Found 페이지로 보내 벌임
+    # 잘못된 값 --> 알아서 Not Found 페이지로 보내 벌임
     model = models.Room
 
 
@@ -40,9 +40,11 @@ class SearchView(View):
             form = forms.SearchForm(request.GET)
 
             if form.is_valid():
-
+                print(form)
                 city = form.cleaned_data.get("city")
                 country = form.cleaned_data.get("country")
+                print(country)
+
                 room_type = form.cleaned_data.get("room_type")
                 price = form.cleaned_data.get("price")
                 guests = form.cleaned_data.get("guests")
