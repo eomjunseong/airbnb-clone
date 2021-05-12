@@ -118,7 +118,6 @@ class Room(core_models.TimeStampedModel):
         return photo.file.url
         # print(photo.file.url)#/media/room_photos/25.webp
 
-
-# python manage.py shell
-# from rooms.models import Room
-# room = Room.objects.get(id=1)
+    def get_next_four_photoes(self):
+        photos = self.photos.all()[1:5]
+        return photos

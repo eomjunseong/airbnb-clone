@@ -21,7 +21,7 @@ class HomeView(ListView):
         return context
 
 
-class RoomDatail(DetailView):
+class RoomDetail(DetailView):
 
     """RoomDatail Definition"""
 
