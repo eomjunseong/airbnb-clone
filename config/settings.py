@@ -149,3 +149,7 @@ print(os.environ.get("MAILGUN_PASSWORD"))
 EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
 EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
 EMAIL_FROM = "sexy-guy@sandbox86767e23ade84c7f9a3f3c809e159093.mailgun.org"
+
+# Auth 23.3 05-13/
+
+LOGIN_URL = "/user/login/"

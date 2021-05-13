@@ -1,6 +1,12 @@
-from django.views.generic import ListView, DetailView, View
-from django.shortcuts import render
+from django.http.response import Http404
+from django.views.generic import ListView, DetailView, View, UpdateView
+from django.urls import reverse_lazy
+from django.shortcuts import render, redirect, reverse
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from users import mixins as user_mixins
 from . import models, forms
 
 
@@ -106,3 +112,82 @@ class SearchView(View):
         else:
             form = forms.SearchForm()
         return render(request, "rooms/search.html", {"form": form})
+
+
+class EditRoomView(user_mixins.LoggedInOnlyView, UpdateView):
+
+    model = models.Room
+    template_name = "rooms/room_edit.html"
+    fields = (
+        "name",
+        "description",
+        "country",
+        "city",
+        "price",
+        "address",
+        "guests",
+        "beds",
+        "bedrooms",
+        "baths",
+        "check_in",
+        "check_out",
+        "instant_book",
+        "room_type",
+        "amenities",
+        "facilities",
+        "house_rules",
+    )
+
+    def get_object(self, queryset=None):  # 이게 원래 디폴트로 방찾는데 오버라이딩중
+        room = super().get_object(queryset=queryset)  # pk 통해 방찾아옴
+        if room.host.pk != self.request.user.pk:
+            raise Http404()
+        return room  # 원래 역할이 방 반환
+
+
+class RoomPhotosView(user_mixins.LoggedInOnlyView, DetailView):
+
+    # detailview pk defualt
+    model = models.Room
+    template_name = "rooms/room_photos.html"
+
+    def get_object(self, queryset=None):  # 이게 원래 디폴트로 방찾는데 오버라이딩중
+        room = super().get_object(queryset=queryset)  # pk 통해 방찾아옴
+        if room.host.pk != self.request.user.pk:
+            raise Http404()
+        return room  # 원래 역할이 방 반환
+
+
+@login_required
+def delete_photo(request, room_pk, photo_pk):
+
+    user = request.user
+    try:
+        room = models.Room.objects.get(pk=room_pk)
+        if room.host.pk != user.pk:
+            messages.error(request, "Can't delete that photo")
+        else:
+            # photo = models.Photo
+            # photo.delete()
+            models.Photo.objects.filter(pk=photo_pk).delete()
+            messages.success(request, "Photo Deleted")
+        return redirect(reverse("rooms:photos", kwargs={"pk": room_pk}))
+    except models.Room.DoesNotExist:
+        return redirect(reverse("core:home"))
+
+
+class EditPhotoView(user_mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView):
+
+    model = models.Photo
+    template_name = "rooms/photo_edit.html"
+    # 이게 있어야  model = models.Photo 작동/ 디폴트 pk라 /
+    # 내 url에 pk 가 없어서 해줬음
+    pk_url_kwarg = "photo_pk"
+    fields = ("caption",)
+    success_message = "Photo updated"  # import SuccessMessageMixin
+
+    # success_url = reverse_lazy("") --> 로직으로 구현해보자 .
+
+    def get_success_url(self):
+        room_pk = self.kwargs.get("room_pk")  # 룸키 얻기위해..
+        return reverse("rooms:photos", kwargs={"pk": room_pk})
