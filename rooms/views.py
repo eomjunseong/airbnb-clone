@@ -1,5 +1,5 @@
 from django.http.response import Http404
-from django.views.generic import ListView, DetailView, View, UpdateView
+from django.views.generic import ListView, DetailView, View, UpdateView, FormView
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, reverse
 from django.core.paginator import Paginator
@@ -191,3 +191,40 @@ class EditPhotoView(user_mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateVie
     def get_success_url(self):
         room_pk = self.kwargs.get("room_pk")  # 룸키 얻기위해..
         return reverse("rooms:photos", kwargs={"pk": room_pk})
+
+
+class AddPhotoView(user_mixins.LoggedInOnlyView, FormView):
+
+    # model = models.Photo-->필요없음  이거 createview 에서 필요한거인듯..?
+
+    template_name = "rooms/photo_create.html"
+    # fields = ("caption", "file") -->필요없음
+    form_class = forms.CreatePhotoForm
+
+    # form_valid : 는 항상 httpresponse를 반환함
+    # 빨간 form  -->form_class
+    def form_valid(self, form):
+        pk = self.kwargs.get("pk")  # 여기서 kwargs 사용한이유 찾기
+        form.save(pk)  # 이게 작동해야 form.createphotoform.에서 pk 사용가능// 토스임
+        messages.success(self.request, "Photo Uploaded")
+        # SuccessMessageMixin 쓰면 -->form_valid를 쓸수가없다.....뭔소리야진짜...
+        return redirect(reverse("rooms:photos", kwargs={"pk": pk}))
+
+
+class CreateRoomView(user_mixins.LoggedInOnlyView, FormView):
+
+    form_class = forms.CreateRoomForm
+    template_name = "rooms/room_create.html"
+
+    # 빨간 form  -->form_class
+    def form_valid(self, form):
+        # 기존 방법
+        # form.save(self.reqeust.user)
+        room = form.save()
+        room.host = self.request.user
+        room.save()  ####!!!!!!!!!!중요
+        form.save_m2m()
+        messages.success(self.request, "Room Uploaded")
+        # room.pk로 리다이랙트하기위해서
+        # AddPhotoView 와는 다른구성을 갖게헀음
+        return redirect(reverse("rooms:detail", kwargs={"pk": room.pk}))

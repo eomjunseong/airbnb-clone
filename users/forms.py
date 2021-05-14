@@ -52,6 +52,7 @@ class SignUpForm(forms.ModelForm):
         else:
             return password
 
+    # save 메소드를 인터셉트해서 로직구성이라고 생각
     def save(self, *args, **kwargs):
         user = super().save(commit=False)
         email = self.cleaned_data.get("email")

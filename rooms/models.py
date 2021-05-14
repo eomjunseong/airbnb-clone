@@ -114,8 +114,12 @@ class Room(core_models.TimeStampedModel):
 
     def first_photo(self):
         # unpacking value
-        (photo,) = self.photos.all()[:1]
-        return photo.file.url
+        try:
+            (photo,) = self.photos.all()[:1]
+            return photo.file.url
+        except ValueError:
+            return None
+
         # print(photo.file.url)#/media/room_photos/25.webp
 
     def get_next_four_photos(self):
