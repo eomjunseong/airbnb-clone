@@ -1,4 +1,5 @@
 import uuid
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -8,7 +9,8 @@ from django.shortcuts import reverse
 from django.template.loader import render_to_string  # template을 load해서 render 하는거임
 
 
-class User(AbstractUser):  # AbstractUser 는  디비에 등록되지 않아  abstract이어어서
+class User(AbstractUser):
+    # AbstractUser 는  디비에 등록되지 않아  abstract이어어서
 
     """ Custom User Model"""
 
@@ -17,15 +19,18 @@ class User(AbstractUser):  # AbstractUser 는  디비에 등록되지 않아  ab
     GENDER_OTHER = "other"
 
     GENDER_CHOICES = (
-        (GENDER_MALE, "Male"),  # see Male , DB male
-        (GENDER_FEMALE, "Female"),
-        (GENDER_OTHER, "Other"),
+        (GENDER_MALE, _("Male")),  # see Male , DB male
+        (GENDER_FEMALE, _("Female")),
+        (GENDER_OTHER, _("Other")),
     )
 
     LANGRAGE_ENGLISH = "en"
     LANGRAGE_KOREAN = "kr"
 
-    LANGRAGE_CHOICES = ((LANGRAGE_ENGLISH, "English"), (LANGRAGE_KOREAN, "Korean"))
+    LANGRAGE_CHOICES = (
+        (LANGRAGE_ENGLISH, _("English")),
+        (LANGRAGE_KOREAN, _("Korean")),
+    )
 
     CURRENCY_USD = "usd"
     CURRENCY_KRW = "krw"
@@ -43,12 +48,19 @@ class User(AbstractUser):  # AbstractUser 는  디비에 등록되지 않아  ab
     )
 
     avatar = models.ImageField(upload_to="avatars", blank=True)
-    gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
-    bio = models.TextField(default="", blank=True)
+    gender = models.CharField(
+        _("gender"), choices=GENDER_CHOICES, max_length=10, blank=True
+    )
+    bio = models.TextField(_("bio"), blank=True)
     birthdate = models.DateField(blank=True, null=True)
     language = models.CharField(
-        choices=LANGRAGE_CHOICES, max_length=2, blank=True, default=LANGRAGE_KOREAN
+        _("language"),
+        choices=LANGRAGE_CHOICES,
+        max_length=2,
+        blank=True,
+        default=LANGRAGE_KOREAN,
     )
+
     currency = models.CharField(
         choices=CURRENCY_CHOICES, max_length=3, blank=True, default=CURRENCY_KRW
     )
@@ -73,7 +85,7 @@ class User(AbstractUser):  # AbstractUser 는  디비에 등록되지 않아  ab
                 "emails/verify_email.html", {"secret": secret}
             )
             send_mail(
-                "Verify Airbnb Account",
+                _("Verify Airbnb Account"),
                 strip_tags(html_message),
                 settings.EMAIL_FROM,
                 [self.email],
