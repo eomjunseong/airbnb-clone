@@ -7,8 +7,10 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def on_favs(context, room):
     user = context.request.user
-    # print(user)
     the_list = list_models.List.objects.get_or_none(
         user=user, name="My Favourites Houses"
     )
+    print("@@@@@@@@@@------@@")
+    print(room)
+    print("@@@@@@@@@@------@@")
     return room in the_list.rooms.all()

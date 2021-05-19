@@ -32,7 +32,11 @@ class LoginView(mixins.LoggedOutOnlyView, FormView):
 
     # 21 처리되고나면 next 이후의 url로 보냄 ...
     def get_success_url(self):
+
         next_arg = self.request.GET.get("next")
+        print("@@@@@@@@@@@@@@@")
+        print(next_arg)
+        print("@@@@@@@@@@@@@@@")
         if next_arg is not None:
             return next_arg
         else:
