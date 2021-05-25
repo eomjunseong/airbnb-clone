@@ -26,7 +26,7 @@ SECRET_KEY = "isr5+cguzdr1=j%v3t$viln3_we+56wdd^00u#wr7yps+j-r7d"
 # DEBUG = False  # 오류시 에러를 띄움   FLASE 시 404
 DEBUG = True
 # ALLOWED_HOSTS = "*"
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['airbnb-clone2.eba-8vpipfwc.ap-northeast-2.elasticbeanstalk.com']
 
 # Application definition
 
