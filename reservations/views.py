@@ -62,6 +62,9 @@ def edit_reservation(request, pk, verb):
         reservation.status = models.Reservation.STATUS_CONFIRMED
     elif verb == "cancel":
         reservation.status = models.Reservation.STATUS_CANCELED
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        print(models.BookedDay.objects.filter(reservation=reservation))
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         models.BookedDay.objects.filter(reservation=reservation).delete()
     reservation.save()
     messages.success(request, "Reservation Updated")
