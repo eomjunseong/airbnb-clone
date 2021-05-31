@@ -26,7 +26,7 @@ SECRET_KEY = "isr5+cguzdr1=j%v3t$viln3_we+56wdd^00u#wr7yps+j-r7d"
 # DEBUG = False  # 오류시 에러를 띄움   FLASE 시 404
 DEBUG = bool(os.environ.get("DEBUG"))
 # ALLOWED_HOSTS = "*"
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
