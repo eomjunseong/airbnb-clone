@@ -18,6 +18,7 @@ black = "*"
 flake8 = "*"
 awsebcli = "*"
 pipenv-to-requirements = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"

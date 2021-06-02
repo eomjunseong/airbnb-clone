@@ -26,7 +26,7 @@ SECRET_KEY = "isr5+cguzdr1=j%v3t$viln3_we+56wdd^00u#wr7yps+j-r7d"
 # DEBUG = False  # 오류시 에러를 띄움   FLASE 시 404
 DEBUG = bool(os.environ.get("DEBUG"))
 # ALLOWED_HOSTS = "*"
-ALLOWED_HOSTS = [".elasticbeanstalk.com"]
+ALLOWED_HOSTS = [".elasticbeanstalk.com","*"]
 
 # Application definition
 
@@ -88,7 +88,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if DEBUG is False:
+if DEBUG:
 
     DATABASES = {
         "default": {
