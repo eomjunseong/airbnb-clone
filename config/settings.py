@@ -22,13 +22,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = "isr5+cguzdr1=j%v3t$viln3_we+56wdd^00u#wr7yps+j-r7d"
 SECRET_KEY = os.environ.get("DJANGO_SECRET")
+
 #"_we+56wdd^00u#wr7yps+j-r7disr5+cguzdr1=j%v3t$viln3"
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False  # 오류시 에러를 띄움   FLASE 시 404
 #DEBUG = bool(os.environ.get("DEBUG"))
 DEBUG = True
+
 # ALLOWED_HOSTS = "*"
-ALLOWED_HOSTS =[".elasticbeanstalk.com"]
+ALLOWED_HOSTS = [".elasticbeanstalk.com", "localhost"]
 
 # Application definition
 
@@ -99,6 +101,7 @@ if DEBUG is False:
         }
     }
 else:
+
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
