@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from typing_extensions import TypeVarTuple
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,14 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = "isr5+cguzdr1=j%v3t$viln3_we+56wdd^00u#wr7yps+j-r7d"
 SECRET_KEY = os.environ.get("DJANGO_SECRET")
 
-#"_we+56wdd^00u#wr7yps+j-r7disr5+cguzdr1=j%v3t$viln3"
-# SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False  # 오류시 에러를 띄움   FLASE 시 404
-#DEBUG = bool(os.environ.get("DEBUG"))
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = "*"
 ALLOWED_HOSTS = [".elasticbeanstalk.com", "localhost"]
