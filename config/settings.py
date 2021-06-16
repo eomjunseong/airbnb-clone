@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET")
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False  # 오류시 에러를 띄움   FLASE 시 404
 #DEBUG = bool(os.environ.get("DEBUG"))
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = "*"
 ALLOWED_HOSTS = [".elasticbeanstalk.com", "localhost"]
